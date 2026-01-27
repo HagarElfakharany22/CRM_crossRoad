@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
   const logout = (navigate) => {
     setUser(null);
     localStorage.removeItem("user");
-    if (navigate) navigate("/login"); // redirect للـ login
+    if (navigate) navigate("/"); // redirect للـ login
   };
 
   return (
