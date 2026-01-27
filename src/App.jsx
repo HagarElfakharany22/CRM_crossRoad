@@ -36,9 +36,9 @@ const addContacts = (conatct) =>
 
   return (
     <Routes>
-       <Route path="/" element={<Login />} />
+       <Route path="/login" element={<Login />} />
   {/* <Route path="/register" element={<Register />} /> */}
-      <Route path="/layout" element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route
       index
       element={
