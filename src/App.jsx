@@ -43,6 +43,7 @@ const addContacts = (conatct) =>
     {/* Dashboard */}
     <Route
       index
+      path="dashboard"
       element={
         <ProtectedRoute role="admin">
           <Dashboard />

@@ -4,7 +4,7 @@ export default function Sidebar({ user }) {
  const menuItems =
   user.role === "admin"
     ? [
-        { name: "Dashboard", path: "/layout", end: true },
+        { name: "Dashboard", path: "/layout/dashboard", end: true },
         { name: "Leads", path: "/layout/leads", end: false },
         { name: "Contacts", path: "/layout/contacts", end: false },
         { name: "Deals", path: "/layout/deals", end: false },
