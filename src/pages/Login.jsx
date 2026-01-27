@@ -14,7 +14,7 @@ export default function Login() {
 
     if (loggedUser) {
       
-      if (loggedUser.role === "admin") navigate("/layout");
+      if (loggedUser.role === "admin") navigate("/");
       else if (loggedUser.role === "user") navigate("/leads");
       else navigate("/tasks");
     } else {
