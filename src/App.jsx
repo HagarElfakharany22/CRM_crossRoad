@@ -35,11 +35,13 @@ const addContacts = (conatct) =>
     setContacts(contacts.filter(l => l.id !== id));
 
   return (
-    <Routes>
-       <Route path="/" element={<Login />} />
-  {/* <Route path="/register" element={<Register />} /> */}
-      <Route path="/layout" element={<Layout />}>
-        <Route
+   <Routes>
+  <Route path="/" element={<Login />} />
+
+  <Route path="/layout" element={<Layout />}>
+    
+    {/* Dashboard */}
+    <Route
       index
       element={
         <ProtectedRoute role="admin">
@@ -48,30 +50,52 @@ const addContacts = (conatct) =>
       }
     />
 
-        <Route
-          path="leads"
-          element={
-            <ProtectedRoute  roles={["admin", "user"]}>
-            <Leads
-              leads={leads}
-              onAdd={addLead}
-              onEdit={editLead}
-              onDelete={deleteLead}
-            />
-            </ProtectedRoute>
-          }
-        />
+    {/* Leads */}
+    <Route
+      path="leads"
+      element={
+        <ProtectedRoute roles={["admin", "user"]}>
+          <Leads
+            leads={leads}
+            onAdd={addLead}
+            onEdit={editLead}
+            onDelete={deleteLead}
+          />
+        </ProtectedRoute>
+      }
+    />
 
-        <Route path="contacts" element={<Contacts contacts={contacts}
-              onAdd={addContacts}
-              onEdit={editContact}
-              onDelete={deleteConatact} />} />
-        <Route path="deals" element={<Deals />} />
-        <Route path="tasks" element={<ProtectedRoute  roles={["admin", "employee"]}>
+    {/* Contacts */}
+    <Route
+      path="contacts"
+      element={
+        <Contacts
+          contacts={contacts}
+          onAdd={addContacts}
+          onEdit={editContact}
+          onDelete={deleteConatact}
+        />
+      }
+    />
+
+    {/* Deals */}
+    <Route path="deals" element={<Deals />} />
+
+    {/* Tasks */}
+    <Route
+      path="tasks"
+      element={
+        <ProtectedRoute roles={["admin", "employee"]}>
           <Tasks />
-        </ProtectedRoute>} />
-        <Route path="reports" element={<Reports />} />
-      </Route>
-    </Routes>
+        </ProtectedRoute>
+      }
+    />
+
+    {/* Reports */}
+    <Route path="reports" element={<Reports />} />
+
+  </Route>
+</Routes>
+
   );
 }
