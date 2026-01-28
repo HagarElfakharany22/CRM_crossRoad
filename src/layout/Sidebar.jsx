@@ -1,25 +1,23 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Sidebar({ user }) {
- const menuItems =
+const menuItems =
   user.role === "admin"
     ? [
-        { name: "Dashboard", path: "/layout/dashboard", end: true },
-        { name: "Leads", path: "/layout/leads", end: false },
-        { name: "Contacts", path: "/layout/contacts", end: false },
-        { name: "Deals", path: "/layout/deals", end: false },
-        { name: "Tasks", path: "/layout/tasks", end: false },
-        { name: "Reports", path: "/layout/reports", end: false },
+        { name: "Dashboard", path: "/dashboard", end: true },
+        { name: "Leads", path: "/leads", end: false },
+        { name: "Contacts", path: "/contacts", end: false },
+        { name: "Deals", path: "/deals", end: false },
+        { name: "Tasks", path: "/tasks", end: false },
+        { name: "Reports", path: "/reports", end: false },
       ]
     : user.role === "employee"
     ? [
-        // { name: "Dashboard", path: "/layout", end: true },
-        { name: "Tasks", path: "/layout/tasks", end: false },
-        { name: "Leads", path: "/layout/leads", end: false },
+        { name: "Tasks", path: "/tasks", end: false },
+        { name: "Leads", path: "/leads", end: false },
       ]
     : [
-        // { name: "Dashboard", path: "/layout", end: true },
-        { name: "Leads", path: "/layout/leads", end: false },
+        { name: "Leads", path: "/leads", end: false },
       ];
 
   return (
@@ -28,7 +26,12 @@ export default function Sidebar({ user }) {
       style={{ width: "16rem", minHeight: "100vh" }}
     >
       {/* Logo */}
-      <div className="p-3 fs-4 fw-bold text-primary">CRM Pro</div>
+      <Link
+  to="/dashboard"
+  className="p-3 fs-4 fw-bold text-primary text-decoration-none"
+>
+  CRM Pro
+</Link>
 
       {/* Menu */}
       <nav className="flex-grow-1 px-2">
@@ -38,15 +41,16 @@ export default function Sidebar({ user }) {
             to={item.path}
             end={item.end}
             className={({ isActive }) =>
-              `d-block px-3 py-2 mb-1 rounded text-decoration-none ${isActive ? "bg-primary text-white" : "text-white"
+              `d-block px-3 py-2 mb-1 rounded text-decoration-none ${
+                isActive ? "bg-primary text-white" : "text-white"
               }`
             }
           >
             {item.name}
           </NavLink>
-
         ))}
       </nav>
     </aside>
+  
   );
 }

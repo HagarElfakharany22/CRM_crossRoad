@@ -13,10 +13,10 @@ export default function Login() {
     const loggedUser = login(email, password);
 
     if (loggedUser) {
-      
-      if (loggedUser.role === "admin") navigate("/layout/dashboard");
-      else if (loggedUser.role === "user") navigate("/layout/leads");
-      else navigate("/layout/tasks");
+      console.log(loggedUser)
+      if (loggedUser.role === "admin") navigate("/dashboard");
+      else if (loggedUser.role === "user") navigate("/leads");
+      else navigate("/tasks");
     } else {
       alert("Email or password incorrect");
     }

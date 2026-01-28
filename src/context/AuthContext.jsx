@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     if (!localStorage.getItem("users")) {
@@ -12,33 +13,37 @@ export function AuthProvider({ children }) {
     }
 
     const savedUser = localStorage.getItem("user");
-    if (savedUser) setUser(JSON.parse(savedUser));
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+
+    setLoading(false); 
   }, []);
 
   const login = (email, password) => {
-    const found = JSON.parse(localStorage.getItem("users")).find(
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const found = users.find(
       u => u.email === email && u.password === password
     );
 
     if (found) {
       setUser(found);
       localStorage.setItem("user", JSON.stringify(found));
-      return found; 
+      return found;
     }
-
-    return null; 
+    return null;
   };
 
-  // اضفت هنا navigate كـ argument
   const logout = (navigate) => {
     setUser(null);
     localStorage.removeItem("user");
-    if (navigate) navigate("/"); // redirect للـ login
+    if (navigate) navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
+
 }

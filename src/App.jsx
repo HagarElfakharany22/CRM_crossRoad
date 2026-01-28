@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 
 import Layout from "./layout/Layout";
@@ -35,68 +35,72 @@ const addContacts = (conatct) =>
     setContacts(contacts.filter(l => l.id !== id));
 
   return (
-   <Routes>
-  <Route path="/" element={<Login />} />
+    <Routes>
+      {/* Login Route */}
+      <Route path="/login" element={<Login />} />
+      
+      {/* Redirect root to login */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
 
-  <Route path="/layout" element={<Layout />}>
-    
-    {/* Dashboard */}
-    <Route
-      index
-      path="dashboard"
-      element={
-        <ProtectedRoute role="admin">
-          <Dashboard />
-        </ProtectedRoute>
-      }
-    />
-
-    {/* Leads */}
-    <Route
-      path="leads"
-      element={
-        <ProtectedRoute roles={["admin", "user"]}>
-          <Leads
-            leads={leads}
-            onAdd={addLead}
-            onEdit={editLead}
-            onDelete={deleteLead}
-          />
-        </ProtectedRoute>
-      }
-    />
-
-    {/* Contacts */}
-    <Route
-      path="contacts"
-      element={
-        <Contacts
-          contacts={contacts}
-          onAdd={addContacts}
-          onEdit={editContact}
-          onDelete={deleteConatact}
+      {/* Protected Routes with Layout */}
+      <Route  element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+        
+        {/* Dashboard */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute  roles={["admin"]}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
-      }
-    />
 
-    {/* Deals */}
-    <Route path="deals" element={<Deals />} />
+        {/* Leads */}
+        <Route
+          path="/leads"
+          element={
+            <ProtectedRoute roles={["admin", "user"]}>
+              <Leads
+                leads={leads}
+                onAdd={addLead}
+                onEdit={editLead}
+                onDelete={deleteLead}
+              />
+            </ProtectedRoute>
+          }
+        />
 
-    {/* Tasks */}
-    <Route
-      path="tasks"
-      element={
-        <ProtectedRoute roles={["admin", "employee"]}>
-          <Tasks />
-        </ProtectedRoute>
-      }
-    />
+        {/* Contacts */}
+        <Route
+          path="/contacts"
+          element={
+            <Contacts
+              contacts={contacts}
+              onAdd={addContacts}
+              onEdit={editContact}
+              onDelete={deleteConatact}
+            />
+          }
+        />
 
-    {/* Reports */}
-    <Route path="reports" element={<Reports />} />
+        {/* Deals */}
+        <Route path="/deals" element={<Deals />} />
 
-  </Route>
-</Routes>
+        {/* Tasks */}
+        <Route
+          path="/tasks"
+          element={
+            <ProtectedRoute roles={["admin", "employee"]}>
+              <Tasks />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Reports */}
+        <Route path="/reports" element={<Reports />} />
+        
+      </Route>
+    </Routes>
 
   );
 }

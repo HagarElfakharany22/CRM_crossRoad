@@ -11,7 +11,7 @@ const Topbar = ({user}) => {
         type="text"
         placeholder="Search..."
         className="form-control me-3"
-        style={{ maxWidth: "24rem" }} // تقريبًا نفس w-96
+        style={{ maxWidth: "24rem" }} 
       /> */}
      <h3>hello <span style={{color:"#6495ED"}}>{user.name}</span></h3>
       {/* Right Section */}
